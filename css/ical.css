@@ -1,0 +1,54 @@
+﻿body {
+	background-image:url('chrome-extension://__MSG_@@extension_id__/i/background.png');
+}
+
+table, tr, td  {
+	border: 0px;
+	border-style: none;
+}
+
+tr, td {
+	margin: 0px;
+	padding: 0px;
+}
+
+.striped {
+	background-color:#ddd;
+}
+
+.action {
+	background-color:#dd0;
+}
+
+.msg{
+	background-color:#dd1;
+}
+
+.nav{
+	background-color:#dd1;
+}
+
+.menu{
+	background-color:#dd1;
+}
+
+label{
+	width: 7em;
+	float: left;
+}
+
+.settings{
+	background-color:#dd2;
+}
+
+.hover {
+	background-color: #aaa; color: #fff; 
+}
+
+.btn-panel-visible {
+	visibility: visible;
+}
+
+.btn-panel-invisible {
+	visibility: hidden;
+}

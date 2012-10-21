@@ -1,0 +1,27 @@
+{
+	"default_locale" : "en",
+	"name" : "__MSG_name__",
+	"description" : "__MSG_desc__",
+	"version" : "1.0.0.0",
+	"icons" : {
+		"16" : "i/16.png",
+		"24" : "i/24.png",
+		"128" : "i/128.png"
+	},
+	"app" : {
+		"launch" : {
+			"local_path" : "index.html"
+		}
+	},
+	"permissions" : [
+		"unlimited_storage",
+		"notifications"
+	],
+	"intents" : {
+		"http://webintents.org/subscribe" : [{
+			"type" : ["text/calendar"],
+			"title" : "__MSG_desc__",
+			"local_path" : "index.html"
+		}]
+	}
+}

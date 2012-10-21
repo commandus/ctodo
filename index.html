@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+@fileoverview ToDo List Chrome browser plugin
+@author andrei.i.ivanov@commandus.com (Andrei Ivanov).
+Copyright (c) 2012 Andrei Ivanov. All rights reserved.
+-->
+<html>
+	<head>
+		<intent
+			action="http://webintents.org/subscribe"
+			type="text/calendar"
+			title="Запланировать мероприятие в списке дел"
+		></intent>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style type="text/css">@import "css/ical.css";</style> 
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.icalendar.min.js"></script>
+		<script type="text/javascript" src="js/ical.js"></script>
+		<title>Список дел</title>
+	</head>
+	<body>
+		<h1 id="app"></h1>
+		<h2 id="desc"></h2>
+		<div id="lSettings">
+			<a id="aSettings" href="#"></a>
+		</div>
+		<div class="settings" id="pSettings">
+			<form action="#">
+				<div id="lSettingsDescription">
+				</div>
+				<div>
+					<label for="eSettingsName" id="lSettingsName"></label>
+					<input id="eSettingsName" type="text" />
+				</div>
+				<div>
+					<label for="eSettingsEmail" id="lSettingsEmail" ></label>
+					<input id="eSettingsEmail" type="email" />
+				</div>
+				<div>
+					<label for="eSettingsTel" id="lSettingsTel" ></label>
+					<input id="eSettingsTel" type="text" />
+				</div>
+					<!--
+					<dt id="lSettingsLatitude"></dt>
+					<dd>
+						<input id="eSettingsLatitude" type="number" min="-90" max="90" step="0.001" value="62.025" />
+					</dd>
+					<dt id="lSettingsLongitude"></dt>
+					<dd>
+						<input id="eSettingsLongitude" type="number" min="-180" max="180" step="0.001" value="129.445" />
+					</dd>
+					-->
+				</dt>
+				<div id="pSettingsButtons">
+					<button id="bSettingsSave"></button>
+					<button id="bSettingsCancel"></button>
+				</div>
+			</form>
+		</div>
+
+		
+		<div class="msg" id="msg">
+		</div>
+		<div class="action" id="action">
+		</div>
+		
+		<div id="listarea">
+			<div class="nav" id="nav">
+				<a href="#" id="showNew"></a> <a href="#" id="showDone"></a>
+			</div>
+			<h2 id="dsTitle"></h2>
+			<table id="listtable">
+				<thead>
+				<tr id="header">
+				</tr>
+				</thead>
+				<tbody id="list">
+				</tbody>
+			</table>
+			<div class="menu" id="menu">
+				<a href="#" id="deleteOld"></a></a> <a href="http://commandus.com/todo/help/" id="help"></a></a>
+			</div>
+		</div>
+		<script>
+			$(document).ready(function() {
+				$('#app').text(chrome.i18n.getMessage('name'));
+				$('#desc').text(chrome.i18n.getMessage('desc'));
+				$('#showNew').text(chrome.i18n.getMessage('label_show_new'));
+				$('#showDone').text(chrome.i18n.getMessage('label_show_done'));
+				$('#deleteOld').text(chrome.i18n.getMessage('label_delete_old'));
+				$('#aSettings').text(chrome.i18n.getMessage('label_settings'));
+				$('#lSettingsDescription').text(chrome.i18n.getMessage('label_settings_description'));
+				$('#bSettingsSave').text(chrome.i18n.getMessage('label_settings_save'));
+				$('#bSettingsCancel').text(chrome.i18n.getMessage('label_settings_cancel'));
+				$('#lSettingsName').text(chrome.i18n.getMessage('label_settings_name'));
+				$('#lSettingsEmail').text(chrome.i18n.getMessage('label_settings_email'));
+				$('#lSettingsTel').text(chrome.i18n.getMessage('label_settings_tel'));
+				// $('#lSettingsLatitude').text(chrome.i18n.getMessage('label_settings_latitude'));
+				// $('#lSettingsLongitude').text(chrome.i18n.getMessage('label_settings_longitude'));
+				
+				$('#showNew').bind('click', doShowNew);
+				$('#showDone').bind('click', doShowDone);
+				$('#deleteOld').bind('click', doDeleteOld);
+				$('#aSettings').bind('click', doShowSettings);
+				$('#bSettingsSave').bind('click', doSettingsSave);
+				$('#bSettingsCancel').bind('click', doSettingsCancel);
+
+				
+				// $('#subscribe').bind('click', subscribe2event);
+				var myemail = localStorage.getItem("mailto");
+				var mycn = localStorage.getItem("cn");
+				var myphone = localStorage.getItem("tel");
+				
+				$('#eSettingsName').val(mycn);
+				$('#eSettingsEmail').val(myemail);
+				$('#eSettingsTel').val(myphone);
+				
+				if (!myemail) {
+					$('#lSettings').hide();
+					$('#pSettings').show();
+				} else
+					$('#pSettings').hide();
+				
+				var mode = 0;
+				var show_done = 0;
+				var db = initDatabase();
+				
+				function doShowNew() {
+					show_done = 0;
+					$('#showNew').hide();
+					$('#showDone').show();
+					$('#dsTitle').text(chrome.i18n.getMessage('label_view_new'));
+					refreshList(curDB, show_done);  
+				}
+
+				function doShowDone() {
+					show_done = 1;
+					$('#showDone').hide();
+					$('#showNew').show();
+					$('#dsTitle').text(chrome.i18n.getMessage('label_view_done'));
+					refreshList(curDB, show_done);  
+				}
+
+				function doDeleteOld() {
+					deleteDone(curDB);
+					doShowNew();
+				}
+				
+
+				function doShowSettings() {
+					$('#lSettings').hide();
+					$('#pSettings').show();
+				}
+
+				function doSettingsSave() {
+					mycn = $('#eSettingsName').val();
+					myemail = $('#eSettingsEmail').val();
+					myphone = $('#eSettingsTel').val();
+
+					localStorage.setItem("mailto", myemail);
+					localStorage.setItem("cn", mycn);
+					localStorage.setItem("tel", myphone);
+
+					$('#lSettings').show();
+					$('#pSettings').hide();
+				}
+
+				function doSettingsCancel() {
+					$('#lSettings').show();
+					$('#pSettings').hide();
+				}
+
+				if (intent) {
+					// show add new event panel
+					var ev_in = intent.data;
+					if (ev_in) {
+						mode = 1;
+						icalParser.parseIcal(ev_in);
+						// klass created description geo lastmod location organizer priority dtstamp 
+						// seq status transp url recurid duration attach attendee categories comment 
+						// contact exdate exrule rstatus related resources rdate rrule xprop uid title
+						// summary dtstart dtend 
+						var ev = icalParser.ical.events[0];
+						var st = dateFromISO8601(ev.dtstart.value);
+						$('#msg').html("<div>Новое мероприятие " + formatDate(st) + ' ' + formatTime(st) + "</div>");
+						$('#action').html("<div><button id='badd'>Добавить</button><button id='bdecline'>Отказаться</button></div>");
+						var g = ev.geo.value;
+						var latitude = parseLatitude(g);
+						var longitude = parseLongitude(g);
+						var userid = "";
+						ev_out = createEvent(
+							ev.uid.value, 
+							ev.url.value, 
+							dateFromISO8601(ev.dtstart.value),
+							dateFromISO8601(ev.dtend.value),
+							ev.location.value, latitude, longitude, ev.title.value, ev.summary.value, ev.description.value, 
+							userid, mycn, myemail, myphone);
+							
+						function doAccept() {
+							addNew(db, ev, userid, ev_in);
+							$('#action').html("<div><button id='bclose'>Закрыть</button></div>");
+							$('#bclose').bind('click', onClose);
+						}
+
+						function onClose() {
+							intent.postResult(ev_out.ICSAccept());
+						}
+						
+						function doDecline() {
+							intent.postResult(null);
+						}
+
+						$('#badd').bind('click', doAccept);
+						$('#bdecline').bind('click', doDecline);
+						
+					} else {
+						$('#action').html("<div></div>");
+					}
+					// show data set
+					doShowNew();
+				}
+			});
+		</script>
+	</body>
+</html>

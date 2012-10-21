@@ -1,0 +1,198 @@
+﻿{
+	"desc": {
+		"message": "Offline To Do List"
+	},
+	"name": {
+		"message": "To Do List"
+	},
+	"title": {
+		"message": "Add to my offline To Do List"
+	},
+	"error": {
+		"message": "Error"
+	},
+	"label_show_new": {
+		"message": "Show new"
+	},
+	"label_show_done": {
+		"message": "Show done"
+	},
+	"label_view_new": {
+		"message": "New"
+	},
+	"label_view_done": {
+		"message": "Done"
+	},
+	"label_delete_old": {
+		"message": "Delete done"
+	},
+	"label_settings": {
+		"message": "Settings"
+	},
+	"label_settings_description": {
+		"message": "Your booking name and email."
+	},
+	"label_settings_name": {
+		"message": "Name"
+	},
+	"label_settings_email": {
+		"message": "E-mail"
+	},
+	"label_settings_latitude": {
+		"message": "Latitude"
+	},
+	"label_settings_longitude": {
+		"message": "Longitude"
+	},
+	"label_settings_tel": {
+		"message": "Phone"
+	},
+	"label_settings_save": {
+		"message": "Save"
+	},
+	"label_settings_cancel": {
+		"message": "Cancel"
+	},
+	"msg_db_open_done": {
+		"message": "Database open successfully"
+	},
+	"msg_db_open_fail": {
+		"message": "Database can not open"
+	},
+	"msg_db_open_err_nodb": {
+		"message": "Databases are not supported in this browser."
+	},
+	"msg_db_open_err_ver": {
+		"message": "Invalid database version."
+	},
+	"msg_db_open_err_unk": {
+		"message": "Unknown error"
+	},
+	"msg_table_create_done": {
+		"message": "Tables created successfully"
+	},
+	"msg_table_create_fail": {
+		"message": "Tables created with errors"
+	},
+	"msg_db_error": {
+		"message": "Database error"
+	},
+	"msg_transaction_error": {
+		"message": "Database transaction error"
+	},
+	"sql_tbl_todo": {
+		"message": "CREATE TABLE IF NOT EXISTS todo(id INTEGER NOT NULL PRIMARY KEY, uid TEXT, status INTEGER NOT NULL, done INTEGER NOT NULL, url TEXT, created INTEGER NOT NULL, dtstart INTEGER NOT NULL, dtend INTEGER, location TEXT, lat REAL, lon REAL, title TEXT, summary TEXT, description TEXT, userid TEXT, orgcn TEXT, orgemail TEXT, orgphone TEXT, rem TEXT, ics TEXT);"
+	},
+	"sql_ins_todo": {
+		"message": "INSERT INTO todo(uid, status, done, url, created, dtstart, dtend, location, lat, lon, title, summary, description, userid, orgcn, orgemail, orgphone, rem, ics) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+	},
+	"sql_del_done": {
+		"message": "DELETE FROM todo WHERE done = ?;"
+	},
+	"sql_upd_done": {
+		"message": "UPDATE todo SET done = 1 WHERE id = ?;"
+	},
+	"sql_sel_todo": {
+		"message": "SELECT id, uid, status, done, url, dtstart, dtend, location, lat, lon, title, summary, description, userid, orgcn, orgemail, orgphone, rem, ics FROM todo WHERE done = ? ORDER BY dtstart;"
+	},
+	"col_title_id": {
+		"message": "#"
+	},
+	"col_title_uid": {
+		"message": "Id"
+	},
+	"col_title_status": {
+		"message": "Status"
+	},
+	"col_title_done": {
+		"message": "Done"
+	},
+	"col_title_url": {
+		"message": "URL"
+	},
+	"col_title_created": {
+		"message": "Subscription date"
+	},
+	"col_title_dtstart": {
+		"message": "Start"
+	},
+	"col_title_dtstart_time": {
+		"message": "Time"
+	},
+	"col_title_dtend": {
+		"message": "End"
+	},
+	"col_title_location": {
+		"message": "Location"
+	},
+	"col_title_lat": {
+		"message": "Latitude"
+	},
+	"col_title_lon": {
+		"message": "Longitude"
+	},
+	"col_title_title": {
+		"message": "Title"
+	},
+	"col_title_summary": {
+		"message": "Summary"
+	},
+	"col_title_description": {
+		"message": "Description"
+	},
+	"col_title_contact": {
+		"message": "UserId"
+	},
+	"col_title_orgcn": {
+		"message": "Organizer"
+	},
+	"col_title_orgemail": {
+		"message": "e-mail"
+	},
+	"col_title_phone": {
+		"message": "Phone"
+	},
+	"col_title_rem": {
+		"message": "Remarks"
+	},
+	"col_title_ics": {
+		"message": "ICS"
+	},
+	"m1": {
+		"message": "January"
+	},
+	"m2": {
+		"message": "February"
+	},
+	"m3": {
+		"message": "March"
+	},
+	"m4": {
+		"message": "April"
+	},
+	"m5": {
+		"message": "May"
+	},
+	"m6": {
+		"message": "June"
+	},
+	"m7": {
+		"message": "July"
+	},
+	"m8": {
+		"message": "August"
+	},
+	"m9": {
+		"message": "September"
+	},
+	"m10": {
+		"message": "October"
+	},
+	"m11": {
+		"message": "November"
+	},
+	"m12": {
+		"message": "December"
+	}
+
+}

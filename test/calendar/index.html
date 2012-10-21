@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<title>Пример использования web intent для записи</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery.icalendar.min.js"></script>
+		<script type="text/javascript" src="js/fical.js"></script>
+	</head>
+	<body>
+		<h1>Календарь</h1>
+		</div>
+		<div>
+			Мероприятие 1
+			<div id='action'>
+				<button id='subscribe'>Подписаться</button>
+			</div>
+		</div>
+		<div>
+		<script>
+			/**
+				Plugin application reply ACCEPT (or DEСLINED) RFC2445 4.2.12
+			*/
+			function onReply(data) {
+				if (!data) {
+					return;
+				}
+				icalParser.parseIcal(data);
+				// klass created description geo lastmod location organizer priority dtstamp 
+				// seq status transp url recurid duration attach attendee categories comment 
+				// contact exdate exrule rstatus related resources rdate rrule xprop uid summary dtstart dtend 
+				var st = icalParser.ical.events[0].dtstart;
+				var attendee = icalParser.attendee;
+				$('#action').html("<div>Вы подписались на мероприятие " + st.value + "</div>");
+				
+			}
+			
+			function onError() {
+				alert("Ошибка, вероятно, приложение (плагин) закрыто.");
+			}
+			
+			function subscribe2event() {
+				var url = "http://www.commandus.com/";
+				var start = new Date();
+				var end = start;
+				var location = "Якутск";
+				var latitude = 62.025;
+				var longitude = 129.445;
+				var title = "Мероприятие 1";
+				var summary = "Всякое разное";
+				var description = "То да се";
+				var userid = "";
+				var cn = 'Alice Organizer';
+				var email = 'alice@conference.com';
+				var phone = '+1-919-555-1234';
+				var ev = mkReqEvent(null, url, start, end, location, latitude, longitude,
+					title, summary, description, userid, cn, email, phone);
+				var intent = new WebKitIntent("http://webintents.org/subscribe", "text/calendar", ev.ICSRequest());
+				if (!intent) {
+					alert("Permit web intents first.");
+					return;
+				}
+				window.navigator.webkitStartActivity(intent, onReply, onError);
+			}
+			
+			$(document).ready(function() {
+				$('#subscribe').bind('click', subscribe2event);
+			});
+		</script>
+		</div>
+	</body>
+ </html>
+

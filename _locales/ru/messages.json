@@ -1,0 +1,197 @@
+{
+	"desc": {
+		"message": "Офлайновый список дел ToDo"
+	},
+	"name": {
+		"message": "Список дел"
+	},
+	"title": {
+		"message": "Добавить в список дел"
+	},
+	"error": {
+		"message": "Ошибка"
+	},
+	"label_show_new": {
+		"message": "Показать новые"
+	},
+	"label_show_done": {
+		"message": "Показать выполненные"
+	},
+	"label_view_new": {
+		"message": "Новые"
+	},
+	"label_view_done": {
+		"message": "Выполненные"
+	},
+	"label_delete_old": {
+		"message": "Удалить выполненные"
+	},
+	"label_settings": {
+		"message": "Настройки"
+	},
+	"label_settings_description": {
+		"message": "Имя и e-mail для записи."
+	},
+	"label_settings_name": {
+		"message": "Имя"
+	},
+	"label_settings_email": {
+		"message": "E-mail"
+	},
+	"label_settings_tel": {
+		"message": "Телефон"
+	},
+	"label_settings_latitude": {
+		"message": "Широта"
+	},
+	"label_settings_longitude": {
+		"message": "Долгота"
+	},
+	"label_settings_save": {
+		"message": "Сохранить"
+	},
+	"label_settings_cancel": {
+		"message": "Закрыть"
+	},
+	"msg_db_open_done": {
+		"message": "База данных открыта успешно"
+	},
+	"msg_db_open_fail": {
+		"message": "База данных не открылась"
+	},
+	"msg_db_open_err_nodb": {
+		"message": "Браузер не поддерживает СУБД."
+	},
+	"msg_db_open_err_ver": {
+		"message": "Неверная версия базы данных."
+	},
+	"msg_db_open_err_unk": {
+		"message": "Неизвестная ошибка"
+	},
+	"msg_table_create_done": {
+		"message": "Таблицы были созданы успешно"
+	},
+	"msg_table_create_fail": {
+		"message": "Таблицы были созданы с ошибками"
+	},
+	"msg_db_error": {
+		"message": "Ошибка СУБД"
+	},
+	"msg_transaction_error": {
+		"message": "Ошибка транзакции"
+	},
+	"sql_tbl_todo": {
+		"message": "CREATE TABLE IF NOT EXISTS todo(id INTEGER NOT NULL PRIMARY KEY, uid TEXT, status INTEGER NOT NULL, done INTEGER NOT NULL, url TEXT, created INTEGER NOT NULL, dtstart INTEGER NOT NULL, dtend INTEGER, location TEXT, lat REAL, lon REAL, title TEXT, summary TEXT, description TEXT, userid TEXT, orgcn TEXT, orgemail TEXT, orgphone TEXT, rem TEXT, ics TEXT);"
+	},
+	"sql_ins_todo": {
+		"message": "INSERT INTO todo(uid, status, done, url, created, dtstart, dtend, location, lat, lon, title, summary, description, userid, orgcn, orgemail, orgphone, rem, ics) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+	},
+	"sql_del_done": {
+		"message": "DELETE FROM todo WHERE done = ?;"
+	},
+	"sql_upd_done": {
+		"message": "UPDATE todo SET done = 1 WHERE id = ?;"
+	},
+	"sql_sel_todo": {
+		"message": "SELECT id, uid, status, done, url, dtstart, dtend, location, lat, lon, title, summary, description, userid, orgcn, orgemail, orgphone, rem, ics FROM todo WHERE done = ? ORDER BY dtstart;"
+	},
+	"col_title_id": {
+		"message": "№"
+	},
+		"col_title_uid": {
+		"message": "Идентификатор"
+	},
+	"col_title_status": {
+		"message": "Статус"
+	},
+	"col_title_done": {
+		"message": "Завершено"
+	},
+	"col_title_url": {
+		"message": "URL"
+	},
+	"col_title_created": {
+		"message": "Дата записи"
+	},
+	"col_title_dtstart": {
+		"message": "Начало"
+	},
+	"col_title_dtstart_time": {
+		"message": "Время"
+	},
+	"col_title_dtend": {
+		"message": "Окончание"
+	},
+	"col_title_location": {
+		"message": "Место"
+	},
+	"col_title_lat": {
+		"message": "Широта"
+	},
+	"col_title_lon": {
+		"message": "Долгота"
+	},
+	"col_title_title": {
+		"message": "Мероприятие"
+	},
+	"col_title_summary": {
+		"message": "Повестка"
+	},
+	"col_title_description": {
+		"message": "Описание"
+	},
+	"col_title_userid": {
+		"message": "Пользователь"
+	},
+	"col_title_orgcn": {
+		"message": "Организатор"
+	},
+	"col_title_orgemail": {
+		"message": "e-mail"
+	},
+	"col_title_phone": {
+		"message": "Телефон"
+	},
+	"col_title_rem": {
+		"message": "Заметки"
+	},
+	"col_title_ics": {
+		"message": "ICS"
+	},
+	"m1": {
+		"message": "Январь"
+	},
+	"m2": {
+		"message": "Февраль"
+	},
+	"m3": {
+		"message": "Март"
+	},
+	"m4": {
+		"message": "Апрель"
+	},
+	"m5": {
+		"message": "Май"
+	},
+	"m6": {
+		"message": "Июнь"
+	},
+	"m7": {
+		"message": "Июль"
+	},
+	"m8": {
+		"message": "Август"
+	},
+	"m9": {
+		"message": "Сентябрь"
+	},
+	"m10": {
+		"message": "Октябрь"
+	},
+	"m11": {
+		"message": "Ноябрь"
+	},
+	"m12": {
+		"message": "Декабрь"
+	}
+}
